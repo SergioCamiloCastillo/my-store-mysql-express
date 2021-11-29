@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom');
+const connection = require('../libs/mysql');
 
 class UserService {
   constructor() {}
@@ -8,7 +9,8 @@ class UserService {
   }
 
   async find() {
-    return [];
+    const rta = await connection.query('SELECT * FROM tasks');
+    return rta
   }
 
   async findOne(id) {
