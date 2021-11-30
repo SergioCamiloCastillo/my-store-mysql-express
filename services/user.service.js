@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const connection = require('../libs/mysql');
+const connection = require('../libs/sequelize');
 
 class UserService {
   constructor() {}
@@ -9,8 +9,9 @@ class UserService {
   }
 
   async find() {
-    const rta = await connection.query('SELECT * FROM tasks');
-    return rta
+
+    let [data] = await connection.query('SELECT * FROM andres');
+    return data;
   }
 
   async findOne(id) {
