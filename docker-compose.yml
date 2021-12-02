@@ -20,7 +20,17 @@ services:
       # Where our data will be persisted
     volumes:
       - ./my-db:/var/lib/mysql
-    
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=my_store
+      - POSTGRES_USER=sergio
+      - POSTGRES_PASSWORD=sergiocastillo98
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data  
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     restart: always
@@ -30,3 +40,11 @@ services:
       PMA_PASSWORD: sergiocastillo98
     ports:
       - "8080:80"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
