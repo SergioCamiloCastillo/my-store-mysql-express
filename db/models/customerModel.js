@@ -1,21 +1,21 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const { USER_TABLE } = require('./userModel');
 
-//traemos las funciones de sequelize para definir estructuras y guardarlos en base de datos
+const { USER_TABLE } = require('./userModel')
+
 const CUSTOMER_TABLE = 'customers';
-//nombramos la table en base de datos
-const CustomerSchema = {
+
+const CustomerSchema =  {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER
   },
   name: {
     allowNull: false,
     type: DataTypes.STRING,
   },
-  lastname: {
+  lastName: {
     allowNull: false,
     type: DataTypes.STRING,
     field: 'last_name',
@@ -37,26 +37,26 @@ const CustomerSchema = {
     unique: true,
     references: {
       model: USER_TABLE,
-      key: 'id',
+      key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
-  },
-};
-class Customer extends Model {
-  static associate(models) {
-    //relaciones en base de datos
-    this.belongsTo(models.User, { as: 'user' });
-    //con belongsto, la foreign key va a estar en la tabla Customer
-    
+    onDelete: 'CASCADE'
   }
+}
+
+class Customer extends Model {
+
+  static associate(models) {
+    this.belongsTo(models.User, {as: 'user'});
+  }
+
   static config(sequelize) {
     return {
       sequelize,
       tableName: CUSTOMER_TABLE,
       modelName: 'Customer',
-      timestamps: false,
-    };
+      timestamps: false
+    }
   }
 }
 

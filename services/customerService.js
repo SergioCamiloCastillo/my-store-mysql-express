@@ -15,7 +15,9 @@ class CustomerService {
     return user;
   }
   async create(data) {
-    return data;
+    const newCustomer = await models.Customer.create(data);
+
+    return newCustomer;
   }
   async update(id, changes) {
     const model = await this.findOne(id);
@@ -28,3 +30,5 @@ class CustomerService {
     return { rta: true };
   }
 }
+
+module.exports = CustomerService;
