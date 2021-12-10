@@ -14,7 +14,9 @@ class UserService {
 
   async find() {
     //let [data] = await connection.query('SELECT * FROM andres');
-    const data = await models.User.findAll();
+    const data = await models.User.findAll({
+      include:['customer']
+    });
     return data;
   }
 

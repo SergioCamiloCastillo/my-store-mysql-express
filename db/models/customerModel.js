@@ -48,6 +48,7 @@ class Customer extends Model {
 
   static associate(models) {
     this.belongsTo(models.User, {as: 'user'});
+    //ese 'user' que es el que va despues de as, se usa en el servicio para llamar en find, la asociacion de lo que queramos en el include
   }
 
   static config(sequelize) {
