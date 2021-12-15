@@ -1,15 +1,15 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const { USER_TABLE } = require('./userModel')
+const { USER_TABLE } = require('./userModel');
 
 const CUSTOMER_TABLE = 'customers';
 
-const CustomerSchema =  {
+const CustomerSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   name: {
     allowNull: false,
@@ -37,17 +37,20 @@ const CustomerSchema =  {
     unique: true,
     references: {
       model: USER_TABLE,
-      key: 'id'
+      key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
-  }
-}
+    onDelete: 'CASCADE',
+  },
+};
 
 class Customer extends Model {
-
   static associate(models) {
-    this.belongsTo(models.User, {as: 'user'});
+    this.belongsTo(models.User, { as: 'user' });
+    this.hasMany(models.Order, {
+      as: 'orders',
+      foreignKey: 'customerId',
+    });
     //ese 'user' que es el que va despues de as, se usa en el servicio para llamar en find, la asociacion de lo que queramos en el include
   }
 
@@ -56,8 +59,8 @@ class Customer extends Model {
       sequelize,
       tableName: CUSTOMER_TABLE,
       modelName: 'Customer',
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
